@@ -1,0 +1,6 @@
+# UrbanWind x AB-UPT: 16,384 + 16,384 anchors per case, Lion 5e-5,
+# one case per GPU, effective batch 4 (the `abupt` and `training`
+# defaults of ibo/config.py).
+training:
+  cases_per_gpu: 1
+  effective_batch: 4

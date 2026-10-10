@@ -1,0 +1,6 @@
+# UrbanWind x Erwin: four levels of widths 64-512 with ball size 256,
+# AdamW 5e-4 / 0.01 with a per-step cosine to 1e-6 (the `erwin` defaults
+# of ibo/config.py); coordinates through a Gaussian random-Fourier encoder.
+training:
+  cases_per_gpu: 1
+  effective_batch: 4

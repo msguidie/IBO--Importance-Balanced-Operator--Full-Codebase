@@ -1,0 +1,19 @@
+# AirfRANS x AB-UPT: 4,096 volume + 840 surface anchors (the smallest
+# airfoil has 843 wall nodes), the inflow condition through the stem, Lion
+# 5e-5 / 0.05, 398 epochs. The coordinate affine maps the point extent of
+# the dataset ([-2.165, 4.232] x [-1.646, 1.621] plus a 0.5% margin) onto
+# [0, 1000] along the longest axis.
+abupt:
+  vol_anchors: 4096
+  surf_anchors: 840
+  pos_offset: [2.19681, 1.661913]
+  pos_scale: 154.776667
+  infer_chunk: 65536
+training:
+  epochs: 398
+  cases_per_gpu: 1
+  effective_batch: 4
+  n_query: 32000
+  loss_vol_weights: null
+evaluation:
+  decode_chunk: 32000

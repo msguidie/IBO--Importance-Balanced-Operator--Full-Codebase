@@ -1,0 +1,8 @@
+This repository includes a modified port of the Anchored-Branched Universal
+Physics Transformer (AB-UPT) in ibo/models/abupt.py.
+
+Licensed by Emmi AI under the Emmi AI Non-Production License (ENPL).
+
+The licence text is in LICENSES/ENPL-AB-UPT.txt; the modifications are
+listed in the file header and in THIRD_PARTY_NOTICES.md. The port and any
+weights trained with it are for research, testing and evaluation only.

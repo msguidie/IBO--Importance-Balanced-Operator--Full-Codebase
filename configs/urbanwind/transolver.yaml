@@ -1,0 +1,6 @@
+# UrbanWind x Transolver-3: 16 layers, width 256, 8 heads, 64 slices,
+# AdamW 1e-3 / 0.01 with a per-epoch cosine to 1e-5 (the `transolver`
+# defaults of ibo/config.py); 128,000 mixed queries per case and step.
+training:
+  cases_per_gpu: 1
+  effective_batch: 4

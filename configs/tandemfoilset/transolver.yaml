@@ -1,0 +1,19 @@
+# TandemFoilSet x Transolver (the AirfRANS configuration): 8 layers, width
+# 256, 8 heads, 32 slices, Adam with the released one-cycle schedule
+# (4e-5 -> 1e-3 -> 4e-9) over the optimizer steps; input = position,
+# inflow, nearest-wall distance, wall normal + distances to an 8 x 8 grid.
+transolver:
+  n_layers: 8
+  slice_num: 32
+  schedule: onecycle
+  lr: 1.0e-3
+  onecycle_pct_start: 0.3
+  onecycle_div_factor: 25.0
+  onecycle_final_div_factor: 1.0e4
+  infer_chunk: 131072
+training:
+  epochs: 400
+  cases_per_gpu: 1
+  effective_batch: 4
+  n_query: 32000
+  loss_vol_weights: null

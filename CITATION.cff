@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper."
+title: "IBO: Importance-Balanced Operator"
+type: software
+license: MIT
+repository-code: "https://github.com/msguidie/IBO--Importance-Balanced-Operator--Full-Codebase"
+authors:
+  - family-names: Lin
+    given-names: Yiheng
+  - family-names: Yang
+    given-names: Juntao
+  - family-names: See
+    given-names: Simon
+  - family-names: Li
+    given-names: Hongying
+  - family-names: Wong
+    given-names: Jian Cheng
+  - family-names: Ooi
+    given-names: Chin Chun
+preferred-citation:
+  type: generic
+  title: "Seeing Near and Far: A Neural Operator That Efficiently Tokenizes and Decodes on Industrial-Scale CFD Meshes"
+  year: 2026
+  notes: "Preprint"
+  authors:
+    - family-names: Lin
+      given-names: Yiheng
+    - family-names: Yang
+      given-names: Juntao
+    - family-names: See
+      given-names: Simon
+    - family-names: Li
+      given-names: Hongying
+    - family-names: Wong
+      given-names: Jian Cheng
+    - family-names: Ooi
+      given-names: Chin Chun

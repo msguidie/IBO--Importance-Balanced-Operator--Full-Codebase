@@ -1,0 +1,48 @@
+# AirfRANS x IBO. The rotary domain, scales and bases and the Fourier SDF
+# scale are adopted from the cache's calibration report at launch
+# (Dataset.calibration); the values below are placeholders.
+ibo:
+  n_tokens: 4096
+  n_slots: 25
+  cache_knn: 8
+  knn: 8
+  head_dim: 64                 # 6 heads
+  n_blocks: 5
+  n_register: 4
+  long_skips: true
+  adaln: zero                  # per-block zero-initialised conditioning on the inflow
+  encoder_film: true
+  decoder_cond_concat: true
+  pn_hidden: 128
+  pn_out: 192
+  pn_act: silu
+  pn_fp32_first: true
+  token_proj_layers: 2
+  init: trunc_normal
+  decoder_dh: 384
+  decoder_heads: 6
+  decoder_stages: 2
+  decoder_register_attn: true
+  head_hidden: 512
+  fourier_sdf_scale: 10.0
+  fourier_sdf_clip: 8.0
+  idw_lambda_clip: 8.0
+  idw_log_ratio_clip: 8.0
+  rope_dims: [32, 32]
+  rope_base: [5.7, 2.7]
+  rope_scales: [32.0, 16.0]
+  rope_domain_lo: [-2.0, -1.5]
+  rope_domain_hi: [4.0, 1.5]
+training:
+  epochs: 398
+  cases_per_gpu: 4
+  effective_batch: 16
+  n_query: 32000
+  lr: 5.0e-5
+  weight_decay: 0.05
+  warmup_fraction: 0.05
+  warmup_steps: null
+  min_lr_fraction: 0.02
+  loss_vol_weights: null
+evaluation:
+  decode_chunk: 32000

@@ -1,0 +1,4 @@
+# UrbanWind x IBO: the paper's setting is the dataclass default of every
+# section (ibo/config.py), so nothing is overridden here.
+# Layouts: --layout importance (paper), equal, grid.
+{}

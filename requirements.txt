@@ -1,0 +1,11 @@
+torch>=2.4
+numpy>=1.26
+scipy>=1.11
+pyyaml>=6.0
+tqdm
+# optional, per dataset / model (see README, Installation)
+# pyvista          AirfRANS preprocessing and lift / drag metrics
+# open3d>=0.18     DrivAerML preprocessing
+# shapely>=2.0, scikit-learn     UrbanWind preprocessing
+# scikit-learn     SpiderSolver's derived cache on TandemFoilSet
+# pytest           tests/

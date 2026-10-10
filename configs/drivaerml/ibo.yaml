@@ -1,0 +1,49 @@
+# DrivAerML x IBO. The rotary domain is the extent of the region centroids
+# over the dataset; with --layout grid it is re-derived from the lattice at
+# launch (Dataset.calibration).
+ibo:
+  n_tokens: 32768
+  n_slots: 128
+  cache_knn: 16
+  knn: 16
+  head_dim: 32                 # 12 heads
+  n_blocks: 12
+  n_register: 8
+  long_skips: true
+  adaln: none
+  pn_hidden: 128
+  pn_out: 192
+  pn_act: silu
+  pn_fp32_first: true
+  token_proj_layers: 1
+  init: trunc_normal
+  decoder_dh: 384
+  decoder_heads: 6
+  decoder_stages: 2
+  decoder_register_attn: true
+  head_hidden: 256
+  fourier_sdf_scale: 10.0
+  fourier_sdf_clip: 8.0
+  idw_lambda_clip: 8.0
+  idw_log_ratio_clip: 8.0
+  rope_dims: [12, 12, 8]
+  rope_base: [151.991, 9.008, 5.278]
+  rope_scales: [462.0, 39.0, 21.0]
+  rope_domain_lo: [-2.7907, -0.3670, -0.0651]
+  rope_domain_hi: [5.8632, 0.3706, 0.3346]
+training:
+  epochs: 400
+  cases_per_gpu: 1
+  effective_batch: 4
+  n_query: 128000
+  lr: 3.0e-4
+  weight_decay: 0.01
+  warmup_fraction: 0.05
+  warmup_steps: null
+  min_lr_fraction: 0.10
+  loss_vol_weights: null
+  loss_reduction: flat         # mean over the eight volume and surface channels
+  num_workers: 4
+  prefetch_factor: 2
+evaluation:
+  decode_chunk: 262144

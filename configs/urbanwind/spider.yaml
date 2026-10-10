@@ -1,0 +1,8 @@
+# UrbanWind x SpiderSolver: 8 layers, width 256, 10 onion shells, one
+# surface token per face-orientation region (6), 500 innermost volume
+# participants, 2,048 surface rows per 128,000-query sample, Adam with the
+# released one-cycle schedule (the `spider` defaults of ibo/config.py).
+# Needs `python -m ibo derive --dataset urbanwind --model spider` once.
+training:
+  cases_per_gpu: 1
+  effective_batch: 4
