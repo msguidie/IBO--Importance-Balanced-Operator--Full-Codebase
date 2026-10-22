@@ -137,15 +137,20 @@ class UrbanWind(Dataset):
 
     # ---- training ---------------------------------------------------------
     def shard(self, names: list[str], rank: int, world: int) -> list[str]:
-        """Whole estates per rank (one pack holds all directions), equal
-        estate counts across ranks."""
-        order = []
+        """Whole estates per rank (one pack holds all directions): estates
+        go largest-first to the least loaded rank, then every rank is cut
+        to the same case count, because the per-rank step count must agree
+        across ranks (an estate may hold fewer than four clean directions)."""
+        by_estate: dict[str, list[str]] = {}
         for n in names:
-            e = estate_of(n)
-            if e not in order:
-                order.append(e)
-        mine = set(order[rank::world][:len(order) // world])
-        return [n for n in names if estate_of(n) in mine]
+            by_estate.setdefault(estate_of(n), []).append(n)
+        loads, mine = [0] * world, []
+        for e, cases in sorted(by_estate.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+            r = min(range(world), key=lambda i: (loads[i], i))
+            loads[r] += len(cases)
+            if r == rank:
+                mine.extend(cases)
+        return mine[:min(loads)]
 
     def build_train_dataset(self, cfg: Config, names: list[str], view: str, seed_salt: str):
         estates, dirs = [], {}

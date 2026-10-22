@@ -60,6 +60,12 @@ def train(cfg: Config, recipe: Recipe, dataset, auto_resume: bool = False,
     recipe.ensure_derived(cfg, dataset, shard)
     train_ds, collate_fn, residency = recipe.build_train_dataset(
         cfg, dataset, shard, train_seed_salt(cfg.run.seed))
+    n_total = all_reduce_sum(torch.tensor(float(len(train_ds)), dtype=torch.float64, device=device))
+    if int(round(n_total.item())) != len(train_ds) * world:
+        # unequal shards would desynchronise the ranks' collective calls
+        raise RuntimeError(f"rank {rank} holds {len(train_ds)} training cases, the {world} ranks "
+                           f"hold {int(round(n_total.item()))} together; every rank needs the "
+                           f"same count (Dataset.shard)")
     micro_per_epoch = (len(train_ds) // tc.cases_per_gpu) // accum * accum
     opt_steps_per_epoch = micro_per_epoch // accum
     assert opt_steps_per_epoch > 0, "shard too small for one optimizer step"
