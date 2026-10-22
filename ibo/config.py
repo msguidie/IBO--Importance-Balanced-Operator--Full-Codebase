@@ -325,7 +325,9 @@ class TrainingConfig:
 
     @property
     def swa_start(self) -> int:
-        return math.ceil((1.0 - self.swa_fraction) * self.epochs) + 1
+        """First epoch of the averaging window: the last ceil(swa_fraction x
+        epochs) epochs (100 of 400, 100 of 398); never before epoch 1."""
+        return max(1, self.epochs - math.ceil(self.swa_fraction * self.epochs) + 1)
 
     def validate(self):
         assert self.epochs > 0 and self.cases_per_gpu > 0 and self.n_query > 0
