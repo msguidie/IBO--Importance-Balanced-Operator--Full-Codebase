@@ -189,7 +189,7 @@ Options: `--seed`, `--epochs`, `--lr` (the peak rate of the selected model), `--
 Evaluate a finished run on the test split; `--flops` meters one prediction of the evaluation points (on DrivAerML the held-out pool, not the complete mesh: the PFLOP column of the paper is the analytic cost model of its Appendix C.6), `--latency` times the per-case inference on one GPU, `--save-predictions` keeps the predicted fields:
 
 ```bash
-torchrun --standalone --nproc_per_node 4 -m ibo eval --run runs/urbanwind_ibo_s42 --flops --latency
+torchrun --standalone --nproc_per_node 4 -m ibo eval --run-dir runs/urbanwind_ibo_s42 --flops --latency
 ```
 
 Per-case metrics are written under `runs/<run>/eval_test/metrics/` and the aggregate to `results.json`. The tests of the two equivalence gates run on a CPU:

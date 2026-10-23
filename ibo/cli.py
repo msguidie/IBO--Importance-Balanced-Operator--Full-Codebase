@@ -4,7 +4,7 @@ and model in the paper.
   python -m ibo list
   python -m ibo preprocess --dataset urbanwind --data-root data/urbanwind
   torchrun --standalone --nproc_per_node 4 -m ibo train --dataset urbanwind --model ibo
-  torchrun --standalone --nproc_per_node 4 -m ibo eval --run runs/urbanwind_ibo_s42
+  torchrun --standalone --nproc_per_node 4 -m ibo eval --run-dir runs/urbanwind_ibo_s42
 
 Configuration: configs/<dataset>/<model>.yaml holds the paper setting of
 each pair; --set section.key=value overrides any key. The resolved config
@@ -109,7 +109,7 @@ def cmd_train(args) -> int:
 def cmd_eval(args) -> int:
     from .evaluation.run import evaluate
 
-    run_dir = Path(args.run)
+    run_dir = Path(args.run_dir)
     used = sorted(run_dir.glob("*/config_used.yaml")) if not (run_dir / "config_used.yaml").exists() \
         else [run_dir / "config_used.yaml"]
     if not used:
@@ -180,7 +180,7 @@ def main() -> int:
     t.set_defaults(fn=cmd_train)
 
     e = sub.add_parser("eval", help="evaluate a finished run from its config_used.yaml")
-    e.add_argument("--run", required=True, help="run directory (or a directory of per-subset runs)")
+    e.add_argument("--run-dir", required=True, help="run directory (or a directory of per-subset runs)")
     e.add_argument("--split", default="test", choices=["test", "val"])
     e.add_argument("--save-predictions", action="store_true")
     e.add_argument("--latency", action="store_true")

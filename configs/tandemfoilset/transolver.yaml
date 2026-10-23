@@ -9,7 +9,7 @@ transolver:
   lr: 1.0e-3
   onecycle_pct_start: 0.3
   onecycle_div_factor: 25.0
-  onecycle_final_div_factor: 1.0e4
+  onecycle_final_div_factor: 10000.0
   infer_chunk: 131072
 training:
   epochs: 400

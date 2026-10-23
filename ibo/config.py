@@ -514,12 +514,24 @@ def _to_dict(cfg: Config) -> dict:
     return out
 
 
+def _number(cls, name: str, value):
+    """yaml reads 1e-4 and 1.0e4 as strings (no dot or no exponent sign);
+    numeric fields take them as numbers."""
+    kind = str(cls.__dataclass_fields__[name].type).split(" |")[0]
+    if isinstance(value, str) and kind in ("float", "int"):
+        try:
+            return float(value) if kind == "float" else int(value)
+        except ValueError:
+            return value
+    return value
+
+
 def _from_dict(raw: dict, strict: bool = True) -> Config:
     kwargs = {}
     for name in _SECTIONS:
         cls = _section_cls(name)
         section = raw.get(name) or {}
-        known = {k: v for k, v in section.items() if k in cls.__dataclass_fields__}
+        known = {k: _number(cls, k, v) for k, v in section.items() if k in cls.__dataclass_fields__}
         unknown = sorted(set(section) - set(known))
         if unknown and strict:
             raise KeyError(f"unknown keys in config section '{name}': {unknown}")
@@ -557,7 +569,7 @@ def set_dotted(cfg: Config, key: str, value) -> None:
     obj = getattr(cfg, section)
     if name not in obj.__dataclass_fields__:
         raise KeyError(f"unknown key {key!r}")
-    setattr(obj, name, value)
+    setattr(obj, name, _number(type(obj), name, value))
     obj.__post_init__() if hasattr(obj, "__post_init__") else None
 
 
